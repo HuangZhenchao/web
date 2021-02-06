@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>治学网</title>
+	 <link rel="stylesheet" type="text/css" href="__PUBLIC__/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/ui/css/style.css">
+	<script type="text/javascript" src="__PUBLIC__/ui/js/jquery-1.11.3.js"></script>	
+	<script type="text/javascript" src="__PUBLIC__/ui/js/main.js"></script>
+
+	
+</head>
+<body>
+	<input id="person_userid" value="{$person_userid}" style="display: none;">
+	<include file="Public:header"/>
+	<div class="nav_vertical">
+		<?php if($_SESSION['ZHIXUEWANG_USERID']==$person_userid){ ?>		
+			<a href="__APP__/Home/PersonPage/person_list_blog/person_userid/{$person_userid}/ctype/1">博文话题</a>
+			
+			<a href="__APP__/Home/PersonPage/person_list_book/person_userid/{$person_userid}">我的书架</a>
+			<a href="__APP__/Home/PersonPage/person_list_fav/person_userid/{$person_userid}">我喜欢的</a>
+			<a href="__APP__/Home/PersonPage/person_list_comment/person_userid/{$person_userid}"  class="curNav">我评论的</a>
+			
+		<?php }else{ ?>
+			<a href="__APP__/Home/PersonPage/person_list_blog/person_userid/{$person_userid}/ctype/1">博文话题</a>			
+			<a href="__APP__/Home/PersonPage/person_list_book/person_userid/{$person_userid}">他的书架</a>
+			<a href="__APP__/Home/PersonPage/person_list_fav/person_userid/{$person_userid}">他喜欢的</a>
+			<a href="__APP__/Home/PersonPage/person_list_comment/person_userid/{$person_userid}"  class="curNav">他评论的</a>
+			
+		<?php } ?>
+	</div>
+	<div class="left">
+		<include file="PersonPage:person_panel"/>
+		<include file="Public:classify_tag_dateplace"/>	
+		
+		<br style="clear:both;" />
+	</div><div class="right content">
+		
+				
+		<br style="clear:both;" />
+	</div>
+	<footer class="footer">
+		<div class="footer_inner"> 
+			治学网 版权所有&copy;2018<br/>
+			<a>关于本站</a>丨<a>站长统计</a>丨<a>联系我们</a>
+		</div>
+	</footer>
+</body>
+</html>
+	

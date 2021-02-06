@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>账号管理</title>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/ui/css/style.css">
+	<script type="text/javascript" src="__PUBLIC__/ui/js/jquery-1.11.3.js"></script>	
+	<script type="text/javascript" src="__PUBLIC__/ui/js/main.js"></script>
+
+	
+</head>
+<body>
+	<input id="person_userid" value="{$person_userid}" style="display: none;">
+	<include file="Public:header"/>
+	
+	<div class="left">
+		<include file="PersonPage:person_panel"/>
+			
+		<br style="clear:both;" />
+	</div><div class="right content">
+		<h2 class="title">修改密码</h2>
+		<div class="person_info_edit">
+			<table><tbody>
+			<tr><th>用户名:</th><td>{$userinfoarray['username']}</td></tr>
+			<tr><th>密码:</th><td><input class="ipt_w145" type="password" name=""></td></tr>
+			<tr><th>确认密码:</th><td><input class="ipt_w145" type="password" name=""></td></tr>
+			</tbody></table>
+			<a href="" class="btn submit_passwordedit">确定</a>
+		</div>
+		<!--<h2 class="title">邮箱绑定</h2>
+		<div class="person_info_edit">
+		<table><tbody>
+			<tr><th>邮箱:</th><td><input class="ipt_w145" type="text" value="1746565921@qq.com" /></td></tr>
+			
+			</tbody></table>
+			<a href="" class="btn submit_emailedit">确定</a>
+		</div>
+		--><h2 class="title">个人信息</h2>
+		<div class="person_info_edit">
+			<table><tbody>
+			<tr><th>国籍:</th><td>{$userinfoarray['nation']}</td></tr>
+			<tr><th>地区:</th><td>{$userinfoarray['city']}</td></tr>
+			<tr><th>性别:</th><td><?php if($userinfoarray['sex']==0){echo "女";}else{echo "男";}?></td></tr>
+			<tr><th>年龄:</th><td><?php echo date("Y-m-d h:i:s",time())-$userinfoarray['birthday']; ?></td></tr>
+			<tr><th>姓名:</th><td>{$userinfoarray['name']}</td></tr>
+			<tr><th>QQ:</th><td>{$userinfoarray['qq']}</td></tr>
+			<tr><th>微信:</th><td>{$userinfoarray['weichat']}</td></tr>
+			<tr><th>邮箱:</th><td>{$userinfoarray['email']}</td></tr>
+			<tr><th>职业:</th><td>{$userinfoarray['vocational']}</td></tr>
+			<tr><th>兴趣:</th><td>{$userinfoarray['interest']}</td></tr>
+			<tr><th>简介:</th><td><p>{$userinfoarray['detail']}</p><td></tr>
+			</tbody></table>
+			<a href="" class="btn submit_infoedit">确定</a>
+			</div>
+		<br style="clear:both;" />
+	</div>
+	<footer class="footer">
+		<div class="footer_inner"> 
+			治学网 版权所有&copy;2018<br/>
+			<a>关于本站</a>丨<a>站长统计</a>丨<a>联系我们</a>
+		</div>
+	</footer>
+</body>
+</html>
+	

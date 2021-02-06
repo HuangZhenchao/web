@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>首页</title>
+	 <link rel="stylesheet" type="text/css" href="__PUBLIC__/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/ui/css/style.css">
+	<script type="text/javascript" src="__PUBLIC__/ui/js/jquery-1.11.3.js"></script>	
+	<script type="text/javascript" src="__PUBLIC__/ui/js/main.js"></script>
+
+	
+</head>
+<body>
+	<header>
+		<div class="logo">
+			<img class="logo_img" src="__PUBLIC__/ui/images/C_15.png">
+			<span class="logo_text">治学网</span>
+		</div>
+		<nav>
+			<ul class="navUI">
+				<volist name="pmodulelist" id="vo">
+					<li><a href="javascript:;" <?php if($vo['id']==$pmoduleid){echo 'class="curNav"';} ?> value="{$vo.id}">{$vo.name}</a></li>
+				</volist>				
+            </ul>
+		</nav>
+		<div class="searchbar">
+			<input type="text" name="ipt_search">
+			搜索
+		</div>
+		<a class="btn writebtn">发表博客</a>
+		<a class="btn topicbtn">发起话题</a>
+		<a class="btn loginbtn">登录</a>
+		<a class="btn registerbtn">注册</a>		
+	</header>
+	<div class="notice">
+		<div class="fa-volume-up"></div>
+		<div class="notic_text">治学网是一个致力于国学、医学以及信息化技术研究的网站，欢迎各位道友光临指教！</div>
+	</div>
+	<div class="nav_vertical">
+		<volist name="modulelist" id="vo">
+			<a href="javascript:;" <?php if($vo['id']==$moduleid){echo 'class="curNav"';} ?> value="{$vo.id}">
+				{$vo.name}
+			</a>
+		</volist>		
+	</div>
+	<div class="left">
+		<div class="rank_panel">
+			<a class="btn btn_long1" >7日热门博文 ></a>
+			<a class="btn btn_long2" >30日热门博文 ></a>
+			<a class="btn btn_long3" >阅读排行 ></a>
+			<a class="btn btn_long4" >阅读排行 ></a>
+		</div>
+		<div class="left_classifypanel">
+			<h2 class="title"><a href="">分类>></a></h2>
+			<a class="classfiy" href="">
+				<img class="classfiyimg" src="__PUBLIC__/ui/images/C_15.png">
+				<div class="classfiyname">经(100)</div>
+			</a>
+			<a class="classfiy" href="">
+				<img class="classfiyimg" src="__PUBLIC__/ui/images/C_15.png">
+				<div class="classfiyname">史</div>
+			</a>
+			<a class="classfiy" href="">
+				<img class="classfiyimg" src="__PUBLIC__/ui/images/C_15.png">
+				<div class="classfiyname">经(100)</div>
+			</a>
+			<a class="classfiy" href="">
+				<img class="classfiyimg" src="__PUBLIC__/ui/images/C_15.png">
+				<div class="classfiyname">史</div>
+			</a>
+			<a class="classfiy" href="">
+				<img class="classfiyimg" src="__PUBLIC__/ui/images/C_15.png">
+				<div class="classfiyname">经(100)</div>
+			</a>
+			<a class="classfiy" href="">
+				<img class="classfiyimg" src="__PUBLIC__/ui/images/C_15.png">
+				<div class="classfiyname">史</div>
+			</a>
+			<a class="classfiy" href="">
+				<img class="classfiyimg" src="__PUBLIC__/ui/images/C_15.png">
+				<div class="classfiyname">经(100)</div>
+			</a>
+			<a class="classfiy" href="">
+				<img class="classfiyimg" src="__PUBLIC__/ui/images/C_15.png">
+				<div class="classfiyname">史</div>
+			</a>
+		</div>
+		<div class="left_tagpanel">
+			<h2 class="title"><a href="">分类>></a></h2>
+			<a class="tag" href="">论语(100)</a>
+			<a class="tag" href="">大学</a>
+			<a class="tag" href="">中庸</a>
+			<a class="tag" href="">论语</a>
+			<a class="tag" href="">论语</a>
+			<a class="tag" href="">论语</a>
+			<a class="tag" href="">论语</a>
+			<a class="tag" href="">论语</a>
+			<a class="tag" href="">论语</a>
+			<a class="tag" href="">论语</a>
+			<a class="tag" href="">论语</a>
+			<a class="tag" href="">论语</a>
+			<a class="tag" href="">论语</a>
+		</div>
+		<div class="topic_panel">
+			<div class="tabNav ">
+				<a class="btn tabbtn curTab">最新话题
+				</a><a class="btn tabbtn">提问
+				</a><a class="btn tabbtn">观点
+				</a><a class="btn tabbtn">点评
+				</a><a class="btn tabbtn">辩论</a>
+			</div>
+			<div class="listitem">
+				<a class="item_tag">国学</a>
+				<a class="item_tag">国学</a>
+				<h3 class="item_title">治学网新建</h3>
+				<p class="item_content">治学网是一个致力于国学、医学及信息化技术研究的网站！治学网是一个致力于国学、医学及信息化技术研究的网站！</p>
+				<div class="item_info">
+					
+					<span class="item_info_browseCount">
+						<span class="icon_browse"></span><span class="text_browseCount">3浏览</span>
+					</span>
+					<span class="item_info_commentCount">
+						<span class="icon_commentCount"></span><span class="text_commentCount">3评论</span>
+					</span>
+					<span class="item_info_favCount">
+						<span class="icon_fav"></span><span class="text_favCount">3喜欢</span>
+					</span>
+				</div>
+				<br style="clear:both;" />
+			</div>
+			<div class="listitem">
+				<a class="item_tag">国学</a>
+				<a class="item_tag">国学</a>
+				<h3 class="item_title">治学网新建</h3>
+				<p class="item_content">治学网是一个致力于国学、医学及信息化技术研究的网站！治学网是一个致力于国学、医学及信息化技术研究的网站！</p>
+				<div class="item_info">
+					
+					<span class="item_info_browseCount">
+						<span class="icon_browse"></span><span class="text_browseCount">3浏览</span>
+					</span>
+					<span class="item_info_commentCount">
+						<span class="icon_commentCount"></span><span class="text_commentCount">3评论</span>
+					</span>
+					<span class="item_info_favCount">
+						<span class="icon_fav"></span><span class="text_favCount">3喜欢</span>
+					</span>
+				</div>
+				<br style="clear:both;" />
+			</div>
+			<div class="listitem">
+				<a class="item_tag">国学</a>
+				<a class="item_tag">国学</a>
+			</div>
+			<div class="listitem">
+				<a class="item_tag">国学</a>
+				<a class="item_tag">国学</a>
+			</div>
+			<div class="listitem">
+				<a class="item_tag">国学</a>
+				<a class="item_tag">国学</a>
+			</div>
+		</div>
+		<br style="clear:both;" />
+	</div><div class="right content">
+		<div class="content_title"><h1>治学网是一个致力于国学、医学以及信息化技术的交流类网站！</h1></div>
+		<div class="content_info">
+			<div class="item_info">
+					<a class="item_info_author" href="">
+						<span class="author_pic"></span><span class="author_username">治学网</span>
+					</a>
+					<span class="item_info_time">
+						<span class="icon_time"></span><span class="text_time">2018-06-01 19:00:00</span>
+					</span>
+					<span class="item_info_browseCount">
+						<span class="icon_browse"></span><span class="text_browseCount">3浏览</span>
+					</span>
+					<span class="item_info_commentCount">
+						<span class="icon_commentCount"></span><span class="text_commentCount">3评论</span>
+					</span>
+					<span class="item_info_favCount">
+						<span class="icon_fav"></span><span class="text_favCount">3喜欢</span>
+					</span>
+				</div>
+		</div>
+		<div class="content_content">
+			<p>治学网是一个致力于国学、医学以及信息化技术的交流类网站！治学网是一个致力于国学、医学以及信息化技术的交流类网站！治学网是一个致力于国学、医学以及信息化技术的交流类网站！治学网是一个致力于国学、医学以及信息化技术的交流类网站！治学网是一个致力于国学、医学以及信息化技术的交流类网站！治学网是一个致力于国学、医学以及信息化技术的交流类网站！治学网是一个致力于国学、医学以及信息化技术的交流类网站！治学网是一个致力于国学、医学以及信息化技术的交流类网站！</p>
+			<p>治学网是一个致力于国学、医学以及信息化技术的交流类网站！治学网是一个致力于国学、医学以及信息化技术的交流类网站！治学网是一个致力于国学、医学以及信息化技术的交流类网站！治学网是一个致力于国学、医学以及信息化技术的交流类网站！治学网是一个致力于国学、医学以及信息化技术的交流类网站！治学网是一个致力于国学、医学以及信息化技术的交流类网站！治学网是一个致力于国学、医学以及信息化技术的交流类网站！治学网是一个致力于国学、医学以及信息化技术的交流类网站！</p>
+		</div>
+		<div class="content_operate">
+			<a class="content_favrite"><span class="icon_fav"></span><span class="text">喜欢 | 22</span></a>
+			<a href="" class="content_tip">举报文章</a>
+		</div>
+		<div class="splitdiv"></div>
+		<div class="comment_form">
+			<img class="user_pic" src="__PUBLIC__/ui/images/C_15.png">
+			<div class="comment_input">
+				<textarea placeholder="写下你的评论..."></textarea>
+			</div>
+			<a href="" class="btn btn_semi">发送</a>
+		</div>
+		<div class="comment_list">
+			<a name="comment"><h2>20条评论</h2></a>
+			<div class="comment_item">
+				<div class="comment_item1">
+					<a class="commenter">
+						<img class="user_pic" src="__PUBLIC__/ui/images/C_15.png">
+						<span class="">治学网</span>
+					</a>		
+					<div class="comment_content">
+						网站很不错，可以让网友在这里进行思想的碰撞！
+					</div>	
+					<div class="comment_info">
+						<span>1楼</span> | <span>2018-6-11 20:00:00</span>
+						<span class="icon_fav"></span><span>22赞</span>
+						<span class="icon_fav"></span><span>回复</span>
+					</div>
+				</div>
+				<div class="comment_item2">
+					<div class="comment_item2_div">
+						<div class="comment_content">
+							<a href="" class="commenter">zhixuewang</a>：赞同！	
+						</div>	
+						<div class="comment_info">
+							<span>2018-6-11 20:00:00</span>
+							<span class="icon_fav"></span><span>22赞</span>
+							<span class="icon_fav"></span><span>回复</span>
+						</div>
+					</div>
+					<div class="comment_item2_div">
+						<div class="comment_content">
+							<a href="" class="commenter">zhixuewang</a>：赞同！	
+						</div>	
+						<div class="comment_info">
+							<span>2018-6-11 20:00:00</span>
+							<span class="icon_fav"></span><span>22赞</span>
+							<span class="icon_fav"></span><span>回复</span>
+						</div>
+					</div>
+					<div class="comment_item2">
+						<div class="comment_item2_div">
+							<div class="comment_content">
+								<a href="" class="commenter">zhixuewang</a>：赞同！	
+							</div>	
+							<div class="comment_info">
+								<span>2018-6-11 20:00:00</span>
+								<span class="icon_fav"></span><span>22赞</span>
+								<span class="icon_fav"></span><span>回复</span>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+				<div class="comment_item1">
+					<a class="commenter">
+						<img class="user_pic" src="__PUBLIC__/ui/images/C_15.png">
+						<span class="">治学网</span>
+					</a>		
+					<div class="comment_content">
+						网站很不错，可以让网友在这里进行思想的碰撞！
+					</div>	
+					<div class="comment_info">
+						<span>1楼</span> | <span>2018-6-11 20:00:00</span>
+						<span class="icon_fav"></span><span>22赞</span>
+						<span class="icon_fav"></span><span>回复</span>
+					</div>
+				</div>
+				<div class="comment_item2">
+					<div class="comment_item2_div">
+						<div class="comment_content">
+							<a href="" class="commenter">zhixuewang</a>：赞同！	
+						</div>	
+						<div class="comment_info">
+							<span>2018-6-11 20:00:00</span>
+							<span class="icon_fav"></span><span>22赞</span>
+							<span class="icon_fav"></span><span>回复</span>
+						</div>
+					</div>
+					<div class="comment_item2">
+						<div class="comment_item2_div">
+							<div class="comment_content">
+								<a href="" class="commenter">zhixuewang</a>：赞同！	
+							</div>	
+							<div class="comment_info">
+								<span>2018-6-11 20:00:00</span>
+								<span class="icon_fav"></span><span>22赞</span>
+								<span class="icon_fav"></span><span>回复</span>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+				</div>
+				<div id="thinkphp_page">
+        			{$page}
+        		</div>
+			</div>
+			</div>
+			
+		</div>
+
+		<br style="clear:both;" />
+	</div>
+	<footer class="footer">
+		<div class="footer_inner"> 
+			治学网 版权所有&copy;2018<br/>
+			<a>关于本站</a>丨<a>站长统计</a>丨<a>联系我们</a>
+		</div>
+	</footer>
+</body>
+</html>
+	

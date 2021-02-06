@@ -1,0 +1,37 @@
+<script type="text/javascript" charset="utf-8">
+function myDialogAjaxDone(json){
+	DWZ.ajaxDone(json);
+	if (json.statusCode == "1"){
+		navTab.reload("__APP__/Admin/ClassifyManage/index");
+		$.pdialog.closeCurrent();
+	}
+}
+</script>
+ 
+<div class="pageContent">	
+	<form method="post" id='formID' action="__APP__/Admin/ClassifyManage/classify_edit" class="pageForm required-validate" onsubmit="return validateCallback(this,myDialogAjaxDone)">
+    	<input type="hidden" name="id" value="{$classifylist[0]['id']}"/>
+		<div class="pageFormContent" layoutH="55">
+		 	<table class="editTable">
+			 	<tr>
+			 		<th>类别名：</th>
+			 		<td>
+			 			<input type="text" id="txt_word" name="name" class="required" value="{$classifylist[0]['name']}"/>
+			 		</td>
+			 	</tr>
+			 	<tr>
+			 		<th>排序标识：</th>
+			 		<td>
+			 			<input type="text" id="txt_word" name="orderflag" class="required" value="{$classifylist[0]['orderflag']}"/>
+			 		</td>
+			 	</tr>
+			</table>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>	
+</div>

@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>管理平台登录</title>
+<link href="__PUBLIC__/dwz_site/themes/css/login.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="__PUBLIC__/jQueryValidationEngine/css/validationEngine.jquery.css" type="text/css"/>
+<script src="__PUBLIC__/js/jquery-1.8.3.js" type="text/javascript"></script>
+<script language="JavaScript">
+	$(function(){
+    	$('#txt_username').focus();
+	});
+	
+	function clearnname(){
+		$("#txt_username").attr("Value",'');
+		$("#txt_password").attr("Value",'');
+    	$('#txt_username').focus();
+		fleshVerify();
+	}
+	
+	function checkname(){ 		
+		var login_username=$("#txt_username").val();
+		var login_password=$("#txt_password").val();
+		var login_verify=document.getElementById('txt_verify').value;
+		/*if(login_username==''){
+			document.getElementById("Content_PassWord").innerHTML="<font color=red>用户名不能为空！</font>";
+			return;
+		}
+		if(login_password==''){
+			document.getElementById("Content_PassWord").innerHTML="<font color=red>密码不能为空！</font>";
+			return;
+		}
+		//验证验证码是否为空
+		var login_verify=document.getElementById('txt_verify').value;
+		if (login_verify.length == 0 ){
+		    document.getElementById("Content_PassWord").innerHTML="<font color=red>请输入验证码！</font>";
+		    return;
+		}
+		document.getElementById('Content_PassWord').innerHTML ="<img src='__PUBLIC__/Images/loading.gif' aling='absmiddle'/><span style='color:red'>连接中...</span>";*/
+		$.ajax({ 
+			type: "post", 
+			url:'__APP__/Admin/SiteSecurity/checkLogin',
+			data: "&loginname="+login_username+"&password="+login_password+"&verify="+login_verify,
+			success: function(msg){
+				var res = eval("(" + msg + ")");
+				if(res.statusCode == '1') {
+					window.location.href='__APP__/Admin/Index/index';
+				}else {
+					document.getElementById('Content_PassWord').innerHTML ="<span style='color:red'>"+res.message+"</span>";
+					fleshVerify();	
+				}		
+			} //操作成功后的操作！msg是后台传过来的值 			 
+		});
+		
+	}
+		
+	document.onkeydown = function(event)	{   //回车登录
+		event = event?event:window.event;   
+		if (event.keyCode == 13) {
+			$("#txt_username").focus();
+			$("#txt_password").focus();  
+			return checkname();  
+		}   
+	};
+		
+	function fleshVerify(){ 
+		//重载验证码
+		var img = document.getElementById("img_checknum_user");  
+        img.src = "__APP__/Admin/Public/loginverify/rnd/" + Math.random();
+	}
+</script>
+</head>
+<body>
+	 <div class="loginContent">
+       <!--<div class="title"><a target="_blank" href="__APP__/Admin/Public/siteselect">子站点选择>></a></div>
+       -->
+       <div class="login_con">    
+          <div class="lgoin_img">          
+          </div>
+          <div class="login_box">
+            <table>
+                  <tr>
+                      <th>用户名：</th>
+                      <td>
+                          <input type="text" name="username" id="txt_username" class="textbox">
+                      </td>
+                  </tr>
+                  <tr>
+                      <th>密&nbsp;&nbsp;码：</th>
+                      <td>
+                          <input type="password" name="password" id="txt_password" class="textbox">
+                      </td>
+                  </tr>
+                  <tr>
+                      <th>验证码：</th>
+                      <td>
+                          <input type="text" name="verify" id="txt_verify" class="textbox val">
+                          <a href="javascript:void(0);" class="valImg" onclick="fleshVerify()">
+                          	<img id="img_checknum_user" src="__APP__/Admin/Public/loginverify" title="点击刷新验证码" alt="点击刷新"/>
+                          	<span>换一张</span>
+                          </a>
+                      </td>
+                  </tr>
+                 <tr>
+                      <td class="tips">
+                        	<span ></span> 
+                      </td>
+                      <td class="tips">
+                        	<span id="Content_PassWord" ></span> 
+                      </td>
+                  </tr>
+                  <tr>
+                      <th></th>
+                      <td>
+                          <button class="btn_login" onclick="checkname();" value="登录" >登&nbsp;&nbsp;录</button>
+                          <button type="reset" class="btn_reset" value="重置" onClick="clearnname();">重&nbsp;&nbsp;置</button>
+                      </td>
+                  </tr>
+                  <tr>
+                  </tr>
+               </table>
+          </div>
+       </div>       
+      <div class="login_foot tc">
+      </div>
+   </div>
+</body>
+</html>

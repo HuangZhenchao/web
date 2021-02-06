@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>治学网</title>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/ui/css/style.css">
+	<script type="text/javascript" src="__PUBLIC__/ui/js/jquery-1.11.3.js"></script>	
+	<script type="text/javascript" src="__PUBLIC__/ui/js/main.js"></script>
+
+	
+</head>
+<body>
+	<input id="pmoduleid" value="{$pmoduleid}" style="display: none;">
+	<input id="moduleid" value="{$moduleid}" style="display: none;">
+	<input id="ctype" value="{$ctype}" style="display: none;">
+	<input id="person_userid" value="{$person_userid}" style="display: none;">
+	<include file="Public:header"/>
+	<div class="nav_vertical">
+		<?php if($_SESSION['ZHIXUEWANG_USERID']==$person_userid){ ?>		
+			<a href="__APP__/Home/PersonPage/person_list_blog/person_userid/{$person_userid}/ctype/1"  >博文话题</a>
+			
+			<a href="__APP__/Home/PersonPage/person_list_book/person_userid/{$person_userid}">我的书架</a>
+			<a href="__APP__/Home/PersonPage/person_list_fav/person_userid/{$person_userid}">我喜欢的</a>
+			<a href="__APP__/Home/PersonPage/person_list_comment/person_userid/{$person_userid}">我评论的</a>
+			<a class="curNav">修改博文</a>
+		<?php }else{ ?>
+			<a href="__APP__/Home/PersonPage/person_list_blog/person_userid/{$person_userid}/ctype/1">博文话题</a>			
+			<a href="__APP__/Home/PersonPage/person_list_book/person_userid/{$person_userid}">他的书架</a>
+			<a href="__APP__/Home/PersonPage/person_list_fav/person_userid/{$person_userid}">他喜欢的</a>
+			<a href="__APP__/Home/PersonPage/person_list_comment/person_userid/{$person_userid}">他评论的</a>
+			<a class="curNav">修改博文</a>
+		<?php } ?>
+		
+	</div>
+	<div class="left">
+		<include file="PersonPage:person_panel"/>
+		<include file="Public:classify_tag_dateplace"/>	
+		<br style="clear:both;" />
+	</div><div class="right content">
+			<form>
+			<div>
+		 	<table class="editTable"> 
+				<tr>
+			 		<th><div>标题</div></th>
+			 		<td>
+			 			<input type="text" id="blog_id" value="{$blogarray['id']}" style="display:none">
+			 			<input type="text" id="txt_title" class="ipt_w300" minlength="2" maxlength="30" value="{$blogarray['title']}"/>
+			 			<span>2-30个字，转载在标题前加[转]注明</span>
+			 		</td>
+			 	</tr>
+			 	<tr>
+			 		<th><div>类型</div></th>
+			 		<td>
+			 		
+			 		<select type="text" id="txt_stage" class="ipt_w300" minlength="2" maxlength="30" />
+			 			<option value="">请选择博文类型，默认保存为随笔</option>
+						<option value="1" <?php if($blogarray['stage']==1) echo 'selected="selected"'; ?> >博学</option>
+				        <option value="2" <?php if($blogarray['stage']==2) echo 'selected="selected"'; ?> >审问</option>
+						<option value="3" <?php if($blogarray['stage']==3) echo 'selected="selected"'; ?> >慎思</option>
+						<option value="4" <?php if($blogarray['stage']==4) echo 'selected="selected"'; ?> >明辨</option>	
+						<option value="5" <?php if($blogarray['stage']==5) echo 'selected="selected"'; ?> >随笔</option>					
+			 		</select>			 		
+			 			<span>博文的性质，如博学类，是增长见闻类博文！</span>
+			 		</td>
+			 	</tr>
+                <tr>
+			 		<th><div>模块</div></th>
+			 		<td>
+			 			<select type="text" id="txt_pmoduleid"  class="ipt_w300" minlength="2" maxlength="30" onchange="getClassify();">
+			 			<option value="">请选择模块</option>
+						<volist name="pmodulelist" id="vo">
+								<option value="{$vo.id}" <?php if($blogarray['pmoduleid']==$vo['id']) echo 'selected="selected"'; ?> >{$vo.name}</option>
+							</volist>	
+											
+			 		</select>
+			 			<span>模块是本站的大研究方向</span>
+			 		</td>
+			 	</tr>
+
+                <tr>
+			 		<th><div>分类</div></th>
+			 		<td>
+			 			<select type="text" id="txt_classify"  class="ipt_w300" minlength="2" maxlength="30" >
+			 			<option value="">请先选择模块</option>				
+			 		</select>
+			 			<span>分类是对模块的内容分类</span>
+			 		</td>
+			 	</tr>
+			 	<script type="text/javascript">
+			 			var pmoduleid=$('#txt_pmoduleid option:selected').val();
+						var postdata='';
+						if(pmoduleid){
+							postdata+='&pmoduleid='+pmoduleid;
+						}
+						var htmlstr='';
+						$.ajax({ 
+							type: "post", 
+							url:'__APP__/Home/ContentPage/getlist_pmoduleid_classify',
+							data: postdata,
+							async:false,
+				            dataType:'json',
+							success: function(msg){		
+								var result = msg.result;				
+								if(msg.code == 200){	                    	
+					                for(var i = 0 ; i < result.length; i++){
+					                    
+					                    htmlstr+='<option value="'+result[i].id+'"';
+					                    if(result[i].id=={$blogarray.classify}){
+					                    	htmlstr+='selected="selected"';
+					                    }
+					                    htmlstr+=' >'+result[i].name+'</option>';                            
+					                }
+					            }
+					                		
+							} //操作成功后的操作！msg是后台传过来的值 			 
+						});
+						$('#txt_classify').append(htmlstr);
+						
+			 	</script>
+			 	<tr>
+			 		<th><div>标签</div></th>
+			 		<td>
+			 			<input type="text" id="txt_tag1" class="ipt_w145" minlength="2" maxlength="30" list="tags" value="{$blogarray.tag1}"/>
+			 			<datalist id="tags">
+			 				<volist name="alltag" id="vo">
+								<option value="{$vo.name}">{$vo.tag_blog_count}</option>
+							</volist>						
+						</datalist>
+			 			<input type="text" id="txt_tag2" class="ipt_w145" minlength="2" maxlength="30" list="tags" value="{$blogarray.tag2}"/>
+			 			<span>标签是对博文的标识</span>
+			 		</td>
+			 	</tr>
+			 	
+                <!-- <tr>
+                    <th><div>缩略图</div></th>
+                    <td id="MyFile">
+                         <input id='images' type="file" name="images" class="fileup" />                         
+                         <span class="tips">建议尺寸120px*140px</span>
+                    </td>	
+                </tr> -->                
+				<tr>
+					<th style="vertical-align: top;"><div>摘要</div></th>
+					<td>
+						<textarea id="txt_summary" rows="5" cols="40" placeholder="请录入博文摘要，否则将摘取正文前100字显示">{$blogarray.summary}</textarea>
+					</td>
+				</tr>
+				<tr id="content_editor">
+					<th style="vertical-align: top;"><div>正文</div></th>
+					<td>	
+						<!-- 加载编辑器的容器 -->
+					    <script id="ueditor" name="content" type="text/plain" style="height: 500px;">
+					        {$blogarray.content}
+					    </script>
+					    <!-- 配置文件 -->
+					    <script type="text/javascript" src="__PUBLIC__/ueditor1_4_3_3-utf8-php/ueditor.config.js"></script>
+					    <!-- 编辑器源码文件 -->
+					    <script type="text/javascript" src="__PUBLIC__/ueditor1_4_3_3-utf8-php/ueditor.all.js"></script>
+					    <!-- 实例化编辑器 -->
+					    <script type="text/javascript">
+					       var ue = UE.getEditor('ueditor',{autoHeight: false});
+					    </script>								 
+                       
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li>
+					<a href="javascript:;" class="btn blogadd_submit">提交</a>
+				</li>
+				
+			</ul>
+		</div>
+	</form>	
+		</div>
+		<br style="clear:both;" />
+	</div>
+	<footer class="footer">
+		<div class="footer_inner"> 
+			治学网 版权所有&copy;2018<br/>
+			<a>关于本站</a>丨<a>站长统计</a>丨<a>联系我们</a>
+		</div>
+	</footer>
+<script type="text/javascript">
+function getClassify(){
+	var htmlstr="";
+	if($('#txt_pmoduleid option:selected').val()==""){
+		htmlstr='';
+	}else{
+		var pmoduleid=$('#txt_pmoduleid option:selected').val();
+		var postdata='';
+		if(pmoduleid){
+			postdata+='&pmoduleid='+pmoduleid;
+		}
+
+		$.ajax({ 
+			type: "post", 
+			url:'__APP__/Home/ContentPage/getlist_pmoduleid_classify',
+			data: postdata,
+			async:false,
+            dataType:'json',
+			success: function(msg){		
+				var result = msg.result;				
+				if(msg.code == 200){	                    	
+	                for(var i = 0 ; i < result.length; i++){
+	                    
+	                    htmlstr+='<option value="'+result[i].id+'">'+result[i].name+'</option>';                            
+	                }
+	            }
+	                		
+			} //操作成功后的操作！msg是后台传过来的值 			 
+		});
+	}
+	$('#txt_classify').empty();
+	$('#txt_classify').append(htmlstr);
+}
+function removeHTMLTag(str) {
+            str = str.replace(/<\/?[^>]*>/g,''); //去除HTML tag
+            str = str.replace(/[ | ]*\n/g,'\n'); //去除行尾空白
+            //str = str.replace(/\n[\s| | ]*\r/g,'\n'); //去除多余空行
+            str=str.replace(/&nbsp;/ig,'');//去掉&nbsp;
+            return str;
+    }
+$(".blogadd_submit").click(function(){	
+	var blog_id=$("#blog_id").val();
+var title=$("#txt_title").val();
+var stage=$("#txt_stage").val();
+var pmoduleid=$("#txt_pmoduleid").val();
+var classify=$("#txt_classify").val();
+var tag1=$("#txt_tag1").val();
+var tag2=$("#txt_tag2").val();
+var summary=$("#txt_summary").val();
+
+var content = ue.getContent();	    
+
+var postdata='';
+postdata+='&id='+blog_id;
+if(title){
+	postdata+='&title='+title;
+}else{
+	$("#txt_title").css('border-bottom','1px solid red');
+	alert('请输入标题');
+	return;
+}
+if(stage==''){
+	postdata+='&stage=5';
+}else{
+	postdata+='&stage='+stage;	
+}
+if(pmoduleid){
+	postdata+='&pmoduleid='+pmoduleid;
+}else{
+	$("#txt_pmoduleid").css('border-bottom','1px solid red');
+	alert('请选择模块');
+	return;
+}
+if(classify){
+	postdata+='&classify='+classify;
+}else{
+	$("#txt_classify").css('border-bottom','1px solid red');
+	alert('请选择分类，若有分类建议请联系我们！');
+	return;
+}
+
+if(tag1){
+	postdata+='&tag1='+tag1;
+}
+if(tag2){
+	postdata+='&tag2='+tag2;
+}
+
+
+
+if(content){
+	//encodeURIComponent() 函数可把字符串作为 URI 组件进行编码。
+	postdata+='&content='+encodeURIComponent(content);
+}else{
+	//$("#txt_classify").css('border-bottom','1px solid red');
+	alert('请输入内容');
+	return;
+}
+if(summary){
+	postdata+='&summary='+summary;
+}else{
+	summary=removeHTMLTag(content).substr(0,100);
+	postdata+='&summary='+summary;
+}
+$.ajax({ 
+	type: "post", 
+	url:'__APP__/Home/ContentPage/edit',
+	data: postdata,
+	success: function(msg){
+		
+		var res = eval("(" + msg + ")");
+		if(res.statusCode == '1') {		
+			alert(res.message);
+			var urlstr='/zhixuewang/Site/Home/PersonPage/person_list_blog';		
+			window.open(urlstr,'_self');
+		}else {				
+			alert(res.message);									
+		}			
+	} //操作成功后的操作！msg是后台传过来的值 			 
+});
+	
+});
+				</script>	
+</body>
+</html>
+	

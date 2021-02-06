@@ -1,0 +1,151 @@
+<script type="text/javascript">
+					function blog_delete(blog_id){
+						var postdata='';
+						postdata+='&id='+blog_id;
+						$.ajax({ 
+							type: "post", 
+							url:'__APP__/Home/ContentPage/blog_delete',
+							data: postdata,
+							success: function(msg){
+								
+								var res = eval("(" + msg + ")");
+								if(res.statusCode == '1') {		
+									alert(res.message);
+									window.open(window.location.href,'_self');
+								}else {				
+									alert(res.message);									
+								}			
+							} //操作成功后的操作！msg是后台传过来的值 			 
+						});	
+					}
+					</script>
+<div class="blog_panel">
+		<?php if($ctype==1){ ?>
+			<div class="tabNav">
+				<a name="blog" value="0" class="btn btn_tab <?php if($blogstage==0){echo curTab; }?>">全部博文
+				</a><a value="1" class="btn btn_tab <?php if($blogstage==1){echo curTab; }?>">博学
+				</a><a value="2" class="btn btn_tab <?php if($blogstage==2){echo curTab; }?>">审问
+				</a><a value="3" class="btn btn_tab <?php if($blogstage==3){echo curTab; }?>">慎思
+				</a><a value="4" class="btn btn_tab <?php if($blogstage==4){echo curTab; }?>">明辨
+				</a><a value="5" class="btn btn_tab <?php if($blogstage==5){echo curTab; }?>">随笔</a>
+				<a href="javascript:;" class="btn display_topic">话题</a>
+				<a value="time" <?php if($orderflag=='time'){echo 'class="curOrder"'; }else{ echo  'href="javascript:;" class="selectOrder"';}?>>
+					按时间排序↓
+				</a>
+				<a value="hot" <?php if($orderflag=='time'){echo 'href="javascript:;" class="selectOrder"';}else{echo 'class="curOrder"';}?>>
+					按热度排序↓
+				</a>
+			</div>
+			<?php }else{ ?>
+				<div class="tabNav">
+				<a name="blog" value="0" class="btn btn_tab <?php if($blogstage==0){echo curTab; }?>">全部话题
+				</a><a value="1" class="btn btn_tab <?php if($blogstage==1){echo curTab; }?>">问
+				</a><a value="2" class="btn btn_tab <?php if($blogstage==2){echo curTab; }?>">论
+				</a><a value="3" class="btn btn_tab <?php if($blogstage==3){echo curTab; }?>">评
+				</a><a value="4" class="btn btn_tab <?php if($blogstage==4){echo curTab; }?>">辩
+				
+				<a class="btn display_blog">博文</a>
+				<a value="time" <?php if($orderflag=='time'){echo 'class="curOrder"'; }else{ echo  'href="javascript:;" class="selectOrder"';}?>>
+					按时间排序↓
+				</a>
+				<a value="hot" <?php if($orderflag=='time'){echo 'href="javascript:;" class="selectOrder"';}else{echo 'class="curOrder"';}?>>
+					按热度排序↓
+				</a>
+			</div>
+			<?php } ?>
+			<volist name="bloglist" id="vo">
+			<div class="listitem" value="{$vo.id}">
+				
+				<?php 
+						if($vo['ctype']=='1'){
+							switch ($vo['stage']){
+								case 1:
+									$stagename="博学";
+									break;
+								case 2:
+									$stagename="审问";
+									break;
+								case 3:
+									$stagename="慎思";
+									break;
+								case 4:
+									$stagename="明辨";
+									break;
+								case 5:
+									$stagename="随笔";
+									break;
+							}
+						}
+						if($vo['ctype']=='2'){
+							switch ($vo['stage']){
+								case 1:
+									$stagename="问";
+									break;
+								case 2:
+									$stagename="论";
+									break;
+								case 3:
+									$stagename="评";
+									break;
+								case 4:
+									$stagename="辩";
+									break;
+							}
+						}
+
+
+					 ?>
+				<h3 class="item_title" value="{$vo.id}">[{$stagename}]{$vo.title}</h3>
+				<p class="item_summary">{$vo.summary}</p>
+				<div class="div_item_tag">												
+					<?php if(!$vo['tag1']==''){ ?>
+					<a  href="__APP__/Home/ModulePage/modulepage/pmoduleid/1/tag/{$vo.tag1}" class="btn btn_tiny btn_bg_orange item_tag">{$vo.tag1}</a>
+					<?php } ?><?php if(!$vo['tag2']==''){ ?>
+					<a  href="__APP__/Home/ModulePage/modulepage/pmoduleid/1/tag/{$vo.tag2}" class="btn btn_tiny btn_bg_orange item_tag">{$vo.tag2}</a>
+					<?php } ?>
+				</div>
+				<div class="item_info">
+					<a class="item_info_author" href="javascript:;" value="{$vo.userid}">
+						<img class="user_pic" src="__PUBLIC__/ui/images/C_15.png">
+						<span class="author_username">{$vo.author}</span>
+					</a>
+					<span class="item_info_navicon">
+						<i class="fa fa-navicon" style="color: #999999;"></i>
+						<a href="__APP__/Home/ModulePage/modulepage/pmoduleid/{$vo.pmoduleid}">{$vo.pmodulename}</a> ▪ <a href="__APP__/Home/ModulePage/modulepage/pmoduleid/{$vo.pmoduleid}/classify/{$vo.classify}">{$vo.classifyname}</a>
+					</span>
+					<span class="item_info_time">
+						<i class="fa fa-clock-o" style="color: #999999;"></i><span class="text_time">{$vo.dt}</span>
+					</span>
+					<span class="item_info_browseCount">
+						<i class="fa fa-eye" style="color: #999999;"></i><span class="text_browseCount">{$vo.browsenum}浏览</span>
+					</span>
+					<span class="item_info_commentCount">
+						<i class="fa fa-comments" style="color: #999999;"></i><span class="text_commentCount">{$vo.commentnum}评论</span>
+					</span>
+					<span class="item_info_favCount">
+						<i class="fa fa-heart-o" style="color: #999999;"></i><span class="text_favCount">{$vo.favnum}喜欢</span>
+					</span>
+				</div>
+				<?php if($_SESSION['ZHIXUEWANG_USERID']==$vo['userid']){  /*| $_SESSION['ZHIXUEWANG_ROLE']=='1'*/ ?>				
+				<div id="opt_{$vo.id}" style="width:30px;height:20px;float:right;margin-top: -25px;margin-right:-30px;display: none; ">
+					<a class='btn btn_tiny btn_bg_red' href="__APP__/Home/PersonPage/blogedit/blog_id/{$vo.id}" target="_blank">编辑</a>
+					<a class='btn btn_tiny btn_bg_black' onclick="blog_delete('{$vo.id}')">删除</a>
+					
+				</div>
+				<?php } ?>
+				<br style="clear:both;" />
+			</div>
+			</volist>
+			<script type="text/javascript">
+				$(".listitem").mouseover(function() {
+					$("#opt_"+$(this).attr("value")).css("display","block");
+				})
+				$(".listitem").mouseout(function() {
+					$("#opt_"+$(this).attr("value")).css("display","none");
+				})
+			</script>
+		</div>	
+		<div id="thinkphp_page">
+        			{$page}
+        </div>        				
+		<br style="clear:both;" />

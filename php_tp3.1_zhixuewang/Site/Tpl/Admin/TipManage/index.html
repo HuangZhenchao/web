@@ -1,0 +1,249 @@
+<script type="text/javascript" charset="utf-8">
+	/*
+	var t = document.getElementById("search_sex"); 
+
+  for(i=0;i<t.length;i++){
+      if(t.options[i].value=="{$searchlist.sex}"){
+          t.options[i].selected=true
+      }
+  } */
+	var data_id='';
+	$(document).ready(function(){
+		$("#thinkphp_page a").each(function(){
+			$(this).attr({ "title":"医生管理", "rel":"ManageDoctor",  "target":"navTab"  });
+		});
+	});
+	
+	
+function Doctor_delete(data_id)	{			
+	alertMsg.confirm("是否要删除用户？", {
+		okCall: function(){
+			$.ajax({ 
+				type: "post", 
+				url:'__APP__/ManageDoctor/doctor_delete',
+				data: "&id="+data_id,
+				success: function(msg){
+					var res = eval("(" + msg + ")");
+					if(res.statusCode == '1') {		
+						navTab.reload("__APP__/ManageDoctor/index", {data: "", navTabId:''});
+					}else {
+						if(res.message!="") {
+							alertMsg.error(res.message);					
+						}else {
+							alertMsg.error(res.message);
+						}
+					}			
+				} //操作成功后的操作！msg是后台传过来的值 			 
+			});
+		}
+	});
+}
+//注销账户
+function Doctor_cancel(id){
+	$.ajax({ 
+		type: "post", 
+		url:'__APP__/ManageDoctor/doctor_cancel',
+		data: "&id="+id,
+		success: function(msg){
+			var res = eval("(" + msg + ")");
+			if(res.statusCode == '1') {	
+				alert(res.message);		
+				navTab.reload("__APP__/ManageDoctor/index", {data: "", navTabId:''});
+			}else {
+				if(res.message!="") {
+					alertMsg.error(res.message);					
+				}else {
+					alertMsg.error(res.message);
+				}
+			}			
+		} //操作成功后的操作！msg是后台传过来的值 			 
+	});
+}
+//激活账户
+function Doctor_active(id){
+	$.ajax({ 
+		type: "post", 
+		url:'__APP__/ManageDoctor/doctor_active',
+		data: "&id="+id,
+		success: function(msg){
+			var res = eval("(" + msg + ")");
+			if(res.statusCode == '1') {	
+				alert(res.message);	
+				navTab.reload("__APP__/ManageDoctor/index", {data: "", navTabId:''});
+			}else {
+				if(res.message!="") {
+					alertMsg.error(res.message);					
+				}else {
+					alertMsg.error(res.message);
+				}
+			}			
+		} //操作成功后的操作！msg是后台传过来的值 			 
+	});
+}
+	
+	function usersearch()	{
+		var username=$("#user_search_username").val();
+		var name=$("#user_search_name").val();
+		var sex=$("#user_search_sex").val();	
+		var fromdate=$("#user_search_fromdate").val();
+		var todate=$("#user_search_todate").val();
+			
+		var searchdata="";
+		if(username)
+			searchdata=searchdata+"&username="+username;
+		if(name)
+			searchdata=searchdata+"&name="+name;		
+		if(sex)
+			searchdata=searchdata+"&sex="+sex;
+		if(fromdate)
+			searchdata=searchdata+"&fromdate="+fromdate;
+		if(todate)
+			searchdata=searchdata+"&todate="+todate;		
+		navTab.reload("__APP__/Admin/UserManage/index", {data: searchdata, navTabId:''});									
+		//$.pdialog.open("__APP__/ManageDoctor/user_search"+searchdata, "dlg_page101", "查找用户", {mask:true});
+	}
+</script>
+
+<div class="pageHeader">
+	<form action="__APP__/UserManage/user_search" method="post" target="dialog" rel="dlg_page101" mask="true" title="查询档案" >
+		<div class="searchBar">
+			<table>
+				<tr>
+					<td><span style="width:60px;">用户名：</span><input  class="ipt85" type="text" name="username" id="user_search_username" value="{$searchlist.username}" size=8 /></td>
+					<td><span>姓名：</span><input  class="ipt85" type="text" name="name" id="user_search_name" value="{$searchlist.name}" size=6/></td>
+					<td>
+					<table>
+					<tr>
+					<td><span style="width:40px;">角色：</span></td>
+					<td>	
+						<select name="role" id="user_search_role" class="combox"  style="width:80px;" >
+							<option value="" selected="selected">请选择 </option>
+							<option value="0">普通用户 </option>
+							<option value="1" >管理员 </option>
+						</select>
+					</td>	
+					<td><span style="width:40px;">性别：</span></td>
+					<td>	
+						<select name="state" id="user_search_state" class="combox"  style="width:80px;" >
+							<option value="" selected="selected">请选择 </option>
+							<option value="1"> 男 </option>
+							<option value="2" > 女 </option>
+						</select>
+					</td>	
+					<td><span style="width:40px;">性别：</span></td>
+					<td>	
+						<select name="sex" id="user_search_sex" class="combox"  style="width:80px;" >
+							<option value="" selected="selected">请选择 </option>
+							<option value="1"> 男 </option>
+							<option value="2" > 女 </option>
+						</select>
+					</td>
+					</tr>
+					</table>
+					</td>
+				</tr>			
+				<tr>	
+					<td><span>手机号：</span><input  class="ipt85" type="text" name="tel" id="user_search_tel" value="{$searchlist.tel}" size=11/></td>
+					<td><span>邮箱：</span><input  class="ipt85" type="text" name="email" id="user_search_email" value="{$searchlist.enail}" size=6/></td>		
+					<td><span style="width:75px;">注册时间：</span><input type="text" style="width:85px;" name="fromdate" id="user_search_fromdate" class="date" size=10 value="{$searchlist.birthday}"/>-<input type="text" style="width:85px;" name="todate" id="user_search_todate" class="date" size=10 value="{$searchlist.birthday}"/></td>			
+				</tr>
+			</table>
+			<div class="divider"></div>
+			<div class="divider"></div>
+
+			<div class="subBar">
+				<ul>
+					<li><a class="button" onclick="usersarch();"><span>&nbsp;&nbsp;检索&nbsp;&nbsp;</span></a></li>	
+					<li><a class="button" href="__APP__/Admin/UserManage/useradd" target="dialog" close='false' rel="useradd" resizable='false' maxable="false" mask="true" help="false" width='600' height='450'><span>&nbsp;&nbsp;新建&nbsp;&nbsp;</span></a></li>
+								
+				</ul>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="pageContent">
+	<table  class="table" width="100%" layoutH="160">
+		<thead>
+			<tr>			
+				<th width="65px">用户名</th>
+				<th width="40px">角色</th>	
+				<th width="40px">状态</th>
+				<th width="80px">注册时间</th>
+				<th width="60px">姓名</th>			
+				<th width="40px">性别</th>
+				<th width="20px">年龄</th>
+				<th width="40px">生日</th>	
+				<th width="30px">手机号</th>	
+				<th width="40px">邮箱</th>	
+				<th width="40px">QQ</th>
+				<th width="40px">微信</th>
+				<th width="40px">职业</th>
+				<th width="120px">简介</th>
+				<th style="width:142px;text-align:center;">操作</th>		
+			</tr>
+		</thead>
+		<tbody>
+			<volist name="userlist" id="data">
+				<tr target="sid_user" rel="{$data.userid}" onclick="PatientRecord_jcjtim({$data.doctorid});">
+					
+					<td>{$data.username}</td>
+						<?php 
+							$userflag="注销";
+							if ($data["state"]=="1"){
+								$userflag="正常";
+							}
+						?>
+					<td>{$data.role}</td>
+						<?php 
+							$state="注销";
+							if ($data["state"]=="1"){
+								$state="正常";
+							}
+						?>
+					<td>{$state}</td>
+					<td>{$data.dt}</td>
+					<td>{$data.name}</td>
+						
+						<?php 
+							$sex="女";
+							if ($data["sex"]=="0"){
+								$sex="男";
+							}
+						?>
+					<td>{$sex}</td>
+					<td>{$data.old}</td>
+					<td>{$data.birthday}</td>
+					<td>{$data.tel}</td>
+					<td>{$data.email}</td>
+					<td>{$data.qq}</td>
+					<td>{$data.weichat}</td>
+					<td>{$data.vocational}</td>	
+					<td>{$data.detail}</td>			
+					<td style="height:30px;">
+						<a style="margin-left:6px;" href="#" onclick="Doctor_delete({$data.doctorid});" title="删除" class="btnDel">删除</a>
+						<a href="__APP__/ManageDoctor/getuserid/userid/{$data.doctorid}" target="dialog" close='false'  rel="DlgNewPatient"  resizable='false' maxable="false"  mask="true" help="false"  width='620' height='450' title="修改" ><input name="imgbtn" type="image" src="__PUBLIC__/Images/edit2.png" border="0" ></a>
+                        <a href="__APP__/ManageDoctor/password/userid/{$data.doctorid}" rel="pass" target="dialog" resizable='false' help="false"  mask="true" maxable="false" close='false' width='350' height='150' title="修改密码"><input name="imgbtn" type="image" src="__PUBLIC__/Images/password.png" border="0" ></a>
+					    <?php
+                        	$userflag="";
+                        	if ($data["userflag"]=="1"){
+                   		 ?> 
+					    <a href="javascript:void(0)" onclick="Doctor_cancel({$data.doctorid})" title="注销此账户"><input name="imgbtn" type="image" src="__PUBLIC__/Images/logout.png" border="0" ></a>   
+					    <?php
+                        	}elseif ($data["userflag"]=="0"){
+                    	?> 
+						<a href="javascript:void(0)" onclick="Doctor_active({$data.doctorid})" title="激活此账户"><input name="imgbtn" type="image" src="__PUBLIC__/Images/select.png" border="0" ></a>				
+						<?php
+                       		}
+                    	?>
+                    	<a href="__APP__/ManageDoctor/getauthorityedit/doctorid/{$data.doctorid}" target="dialog" close='false'  rel="getauthorityedit"  resizable='false' maxable="false"  mask="true" help="false"  width='420' height='600' title="权限设置" ><input name="imgbtn" type="image" src="__PUBLIC__/Images/authorityset.jpg" border="0" ></a>
+					</td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+	<div class="panelBar">
+		<div  id="thinkphp_page" style="padding-top:5px">
+			{$page}
+		</div>
+	</div>
+</div>

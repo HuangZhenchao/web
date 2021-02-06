@@ -1,0 +1,190 @@
+<script type="text/javascript" charset="utf-8">
+/**
+ * dialog上的表单提交回调函数
+ * 服务器转回navTabId，可以重新载入指定的navTab. statusCode=DWZ.statusCode.ok表示操作成功, 自动关闭当前dialog
+ * echo '{"statusCode":"1", "message":"操作成功", "currentDiaglogId":"DlgNewPatient", "rel":"dlg_page101", "callbackType":"closeCurrent","title":"查找用户",
+ "forwardUrl":"__APP__/Patient/user_search"}';
+ * form提交后返回json数据结构,json格式和navTabAjaxDone一致
+ */
+function myDialogAjaxDone(json){
+	DWZ.ajaxDone(json);
+	if (json.statusCode == DWZ.statusCode.ok){
+		navTab.reload("__APP__/ManageDoctor/index", {data: "", navTabId:''});
+    	$.pdialog.close("DlgNewPatient");
+	}
+}
+ function checkpatiend(){
+		var str=$("#doctor_edit_username").val();
+		var reg =/^[\u4E00-\u9FA5 0-9 A-Za-z]{2,16}$/;
+		var u = str.match(reg); 
+		if(u==null){
+			if(str.length>5){
+				alert('登录名长度不能多于16个字！');
+			}else if(str.length<2){
+				alert('登录名长度不能少于2个字！');
+			}else{
+				alert('登录名格式错误！');
+			}
+			return false;
+		}
+		var str=$("#doctor_edit_nickname").val();
+		var reg =/^[\u4E00-\u9FA5 0-9 A-Za-z]{2,5}$/;
+		var n = str.match(reg); 
+		if(n==null){
+			if(str.length>5){
+				alert('姓名长度不能多于5个字！');
+			}else if(str.length<2){
+				alert('姓名长度不能少于2个字！');
+			}else{
+				alert('姓名格式错误！');
+			}
+			return false;
+		}
+		var role = $("#sel_doctoredit_role").val();
+		if(role==""){
+			alert('请选择用户角色！');
+			return false;
+		}
+		var str=$("dd input[name=birthday]").val();
+		var reg =/^[0-9]{4}[\-][0-9]{2}[\-][0-9]{2}$/;     
+		var b = str.match(reg);
+		if(b==null){
+			alert('出生日期格式错误！');
+			return false;
+		}
+		var sex = $("#sel_doctoredit_sex").val();
+		if(sex==""){
+			alert('请选择用户性别！');
+			return false;
+		}
+		var str=$("dd input[name=tel]").val();
+		var reg =/^[0-9 \(\)](\d{7}|\d{10}|\d{11})$/;
+		var p = str.match(reg); 
+		if(p==null){
+			alert('手机号格式错误！');
+			return false;
+		}
+		var str=$("#doctor_edit_idcard").val();
+		var reg =/^(\d{18}|\d{15}|\d{17}[xX])$/;     
+		var r = str.match(reg);
+		if(r==null){
+			alert('身份证格式错误！');
+			return false;
+		}
+	}
+</script>
+<div class="pageContent">
+	<form method="post" action="__APP__/ManageDoctor/doctor_update" class="pageForm required-validate" onsubmit="return validateCallback(this, myDialogAjaxDone)">
+		<input type="hidden" name="id" value="{$userslist.doctorinfo.id}">
+		<div class="pageFormContent_add" layoutH="58">
+			<table style="margin-left:120px;">
+				<tr >
+					<td style="width:205px;" rowspan="4">
+						<div style="width:100px;height:110px;">
+							
+								<?php if($userslist['doctorinfo']['picture']!=''):?>
+					   			<img style="width:100px;height:110px;" id="avatar" src="{$userslist.doctorinfo.picture}" />
+					   		<?php else:?>
+									<img style="width:100px;height:110px;" id="avatar" src="__PUBLIC__/Images/user.jpg"/>
+								<?php endif;?>
+						
+						</div>
+						<div style="width:100px;text-align:center;margin-top:5px;">
+							<a href="__APP__/ManageDoctor/up_img" target="dialog" close='false' rel="up_img" resizable='false' maxable="false" mask="true" help="false" width='680' height='500' class="button4">修改头像</a>
+							<input type="hidden" name="picture" type="text" id="picture" value="" />
+						</div>
+					</td>
+					<th width='85px'>
+						登入名：
+					</th>
+					<td class="tdl" style='height:35px'>
+						<input style="background-position: 100% 0;" name="username" id='doctor_edit_username' type="text" value="{$userslist.baseinfo.username}" />
+					</td>
+				</tr>
+				<tr>
+					<th width='85px'>
+						姓名：
+					</th>
+					<td class="tdl" style='height:35px'>
+						<input name="nickname" type="text"  id='doctor_edit_nickname'  value="{$userslist.baseinfo.nickname}" />
+					</td>
+				</tr>
+				<tr>
+					<th width='85px'>
+						角色：
+					</th>
+					<td class="tdl" style='height:35px'>
+						<select name="roleid" id='sel_doctoredit_role'  class="combox required" value="{$userslist.doctorinfo.sex}">
+							<option value="0" <?php if($userslist['doctorinfo']['roleid']=='0' ){?>selected="selected"<?php } ?>> 健康顾问 </option>
+							<option value="1" <?php if($userslist['doctorinfo']['roleid']=='1' ){?>selected="selected"<?php } ?>> 体检医生 </option>
+							<option value="2" <?php if($userslist['doctorinfo']['roleid']=='2' ){?>selected="selected"<?php } ?>> 专家 </option>
+						</select>
+						<span style="line-height:25px;color:red;font-size:15px;">*</span>
+					</td>
+				</tr>
+				<tr>
+					<th width='85px'>
+						Email：
+					</th>
+					<td class="tdl" style='height:35px'>
+						<input name="email" type="text" value="{$userslist.doctorinfo.email}"  />
+					</td>
+				</tr>
+			</table>
+			<dl>
+				<dt style="width:80px;">出生年月：</dt>
+				<dd><input  name="birthday" type="text" class="date" style="background-position: 100% 0;" value="{$userslist.doctorinfo.birthday}" /></dd>
+			</dl>
+			<dl_1>
+				<dt style="width:80px;">性别：</dt>
+				<dd_1 style="width:80px;height:30px;" >
+					<select name="sex" id="sel_doctoredit_sex" class="combox" value="{$userslist.doctorinfo.sex}">
+						<option value="男" <?php if($userslist['doctorinfo']['sex']=='男' ){?>selected="selected"<?php } ?>> 男 </option>
+						<option value="女" <?php if($userslist['doctorinfo']['sex']=='女' ){?>selected="selected"<?php } ?>> 女 </option><font color='red'>*</font>
+					</select>
+					<span style="line-height:25px;color:red;font-size:15px;">*</span>
+				</dd_1>
+			</dl_1>
+			<dl>
+				<dt style="width:80px;">联系电话：</dt>
+				<dd><input style="background-position: 100% 0;" name="tel" type="text" value="{$userslist.doctorinfo.tel}"  /></dd>
+			</dl>
+			<dl_1>
+				<dt style="width:80px;">身份证：</dt>
+				<dd_1><input style="background-position: 100% 0;" name="idcard" id='doctor_edit_idcard' type="text" value="{$userslist.baseinfo.idcard}"  /></dd_1>
+			</dl_1>
+			<dl>
+				<dt style="width:80px;">居住地：</dt>
+				<dd><input name="address" type="text" value="{$userslist.doctorinfo.address}" /></dd>
+			</dl>
+			<dl_1>
+				<dt style="width:80px;">部门：</dt>
+				<dd_1><input name="groupname" type="text" value="{$userslist.doctorinfo.groupname}" /></dd_1>
+			</dl_1>	
+			<dl>
+				<dt style="width:80px;">专业：</dt>
+				<dd><input name="major" type="text" value="{$userslist.doctorinfo.major}" /></dd>
+			</dl>
+			<dl_1>
+				<dt style="width:80px;">职称：</dt>
+				<dd_1><input name="jobname" type="text" value="{$userslist.doctorinfo.jobname}"/></dd_1>
+			</dl_1>	
+			<table style="margin-left:5px;">
+				<tr>
+					<td style="width:85px;">简介：</td>
+					<td><textarea name="brief" style="width:450px;height:150px;resize:none;margin-bottom:8px;">{$userslist.doctorinfo.brief}</textarea></td>
+				</tr>
+				<tr>
+					<td>专长：</td>
+					<td><textarea name="speciality" style="width:450px;height:150px;resize: none;">{$userslist.doctorinfo.speciality}</textarea></td>
+				</tr>
+			</table>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit" onclick='return checkpatiend()'>保存</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+</div>

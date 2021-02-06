@@ -1,0 +1,47 @@
+<script type="text/javascript" charset="utf-8">
+function myDialogAjaxDone(json){
+	DWZ.ajaxDone(json);
+	if (json.statusCode == "1"){
+		navTab.reload("__APP__/Admin/ModelManage/index");
+		$.pdialog.closeCurrent();
+	}
+}
+</script>
+
+<div class="pageContent">	
+	<form id="formID" method="post" action="__APP__/Admin/ModelManage/model_add" class="pageForm required-validate" onsubmit="return validateCallback(this,myDialogAjaxDone)">
+    	<input type="hidden" id="hid_pcode" name="pGUID" value="{$pGUID}"/>
+		<table class="editTable"> 	
+			<tr>
+		 		<th>父级模块</th>
+		 		<td><input type="text" name="pname" class="required" value="{$pname}" disabled="disabled" style="background-color:#EFEFEF;"/></td>
+		 	</tr>
+		 	<tr>
+		 		<th>模块名称</th>
+		 		<td><input type="text" name="name" class="required"  /></td>
+		 	</tr>
+			<tr>
+		 		<th>模块类型</th>
+		 		<td>
+		 			<select name="mtype" id='sel_modeledit_ctype'  class="combox required" value="" style="width:141px;">
+							<option value="" selected="selected"> 请选择 </option>
+							<option value="0" > 只做链接 </option>
+							<option value="1" > 首页 </option>
+							<option value="2" > 列表页 </option>
+							<option value="3" > 内容页 </option>
+						</select>
+		 		</td>
+		 	</tr>			 	
+		 	<tr>
+		 		<th>排序标识</th>
+		 		<td><input type="text" name="orderflag" class="required"  /></td>
+		 	</tr>
+		</table>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>	
+</div>

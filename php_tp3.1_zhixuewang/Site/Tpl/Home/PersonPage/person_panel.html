@@ -1,0 +1,40 @@
+<div class="person_panel">
+			<h2 class="title"><a href="">个人资料</a></h2>
+			<div style="margin:0 20px;padding: 10px 0; border-bottom: 1px solid #E3E3E3; ">
+				<img style="width:50px;height: 50px;float: left;" class="user_pic" src="{$userinfoarray['picture']}">
+				<span style="font-size:16px;line-height:50px;float: left;">{$userinfoarray['username']}</span>		
+				<!-- <a style="float:right;line-height:50px;">+关注</a> -->		
+				<br style="clear:both;" />
+			</div>			
+			<div>
+				<div class="person_count">
+					<dl><dt>博文</dt><dd>{$userinfoarray['blogcount']}</dd></dl>
+					<dl><dt>话题</dt><dd>{$userinfoarray['topiccount']}</dd></dl>
+					<dl><dt>评论</dt><dd>{$userinfoarray['commentcount']}</dd></dl>
+					<dl><dt>喜欢</dt><dd>{$userinfoarray['favcount']}</dd></dl>
+				</div>
+				<div class="person_count"  style="border-bottom: 1px solid #E3E3E3; ">
+					<dl><dt>浏览</dt><dd>{$userinfoarray['totalbrowse']}</dd></dl>
+					<dl><dt>被评论</dt><dd>{$userinfoarray['totalcomment']}</dd></dl>
+					<dl><dt>被喜欢</dt><dd>{$userinfoarray['totalfav']}</dd></dl>
+					
+				</div>
+			</div>
+			<div class="person_info" style="display: none;">
+			<table><tbody>
+			<tr><th>国籍:</th><td>{$userinfoarray['nation']}</td></tr>
+			<tr><th>地区:</th><td>{$userinfoarray['city']}</td></tr>
+			
+			<tr><th>性别:</th><td><?php if($userinfoarray['sex']==0){echo "女";}else{echo "男";}?></td></tr>
+			<tr><th>年龄:</th><td><?php echo date("Y-m-d h:i:s",time())-$userinfoarray['birthday']; ?></td></tr>
+			<tr><th>姓名:</th><td>{$userinfoarray['name']}</td></tr>
+			<tr><th>QQ:</th><td>{$userinfoarray['qq']}</td></tr>
+			<tr><th>微信:</th><td>{$userinfoarray['weichat']}</td></tr>
+			<tr><th>邮箱:</th><td>{$userinfoarray['email']}</td></tr>
+			<tr><th>职业:</th><td>{$userinfoarray['vocational']}</td></tr>
+			<tr><th>兴趣:</th><td>{$userinfoarray['interest']}</td></tr>
+			<tr><th>简介:</th><td><p>{$userinfoarray['detail']}</p><td></tr>
+			</tbody></table></div>
+			<div  class="panel_display"><a href="javascript:;">个人信息</a></div>
+
+		</div>

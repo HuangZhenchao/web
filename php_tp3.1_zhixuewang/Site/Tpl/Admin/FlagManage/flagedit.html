@@ -1,0 +1,50 @@
+<script type="text/javascript" charset="utf-8">
+function myDialogAjaxDone(json){
+	DWZ.ajaxDone(json);
+	if (json.statusCode == "1"){
+		navTab.reload("__APP__/Admin/ModelManage/index");
+		$.pdialog.closeCurrent();
+	}
+}
+</script>
+
+<div class="pageContent">	
+	<form id="formID" method="post" action="__APP__/Admin/ModelManage/model_edit" class="pageForm required-validate" onsubmit="return validateCallback(this,myDialogAjaxDone)">	
+    	<input type="hidden" id="hid_pid" name="pid" value="{$modellist[0]['pid']}"/>	
+    	<input type="hidden" id="hid_GUID" name="GUID" value="{$modellist[0]['GUID']}"/>
+			<table class="editTable"> 
+			<tr>
+		 		<th>父级模块</th>
+		 		<?php $pname=$modellist[0]['pname']; if($modellist[0]['pname']=='' ){ $pname="无";} ?>
+		 		<td><input type="text" name="pname" class="required" disabled="disabled" style="background-color:#EFEFEF;" value="{$pname}"/></td>
+		 	</tr>	 
+		 	<tr>
+		 		<th>模块名称</th>
+		 		<td><input type="text" name="name" class="required" value="{$modellist[0]['name']}" /></td>
+		 	</tr>		
+			<tr>
+		 		<th>模块类型</th>
+		 		<td>
+		 			<select name="ctype" id='sel_modeledit_ctype'  class="combox required" value="">
+							<option value="0" <?php if($modellist[0]['ctype']=='0' ){?>selected="selected"<?php } ?>> 只做链接 </option>
+							<option value="1" <?php if($modellist[0]['ctype']=='1' ){?>selected="selected"<?php } ?>> 普通资讯 </option>
+							<option value="2" <?php if($modellist[0]['ctype']=='2' ){?>selected="selected"<?php } ?>> 图片资讯 </option>
+							<option value="3" <?php if($modellist[0]['ctype']=='3' ){?>selected="selected"<?php } ?>> 视频资讯 </option>
+						</select>
+		 		</td>
+		 	</tr>
+		 	
+			
+		 	<tr>
+		 		<th>排序标识</th>
+		 		<td><input type="text" name="orderflag" class="required"  value="{$modellist[0]['orderflag']}"/></td>
+		 	</tr>
+		</table> 	
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>	
+</div>

@@ -1,0 +1,115 @@
+<script type="text/javascript">
+$(function(){						   
+	/* 滑动/展开 */
+	$("ul.expmenu li > div.header").click(function(){												   
+		var arrow = $(this).find("span.arrow");	
+		if(arrow.hasClass("up")){
+			arrow.removeClass("up");
+			arrow.addClass("down");
+		}else if(arrow.hasClass("down")){
+			arrow.removeClass("down");
+			arrow.addClass("up");
+		}
+		$(this).parent().find("ul.menu").slideToggle();	
+	});
+	/*添加选中样式*/
+	$("ul.expmenu .menu li").click(function(){												   
+		 $("ul.expmenu .menu li.selected").removeClass("selected");
+		 $(this).addClass("selected");
+	});	
+});
+//删除类型
+function Moduledel(GUID){
+	alertMsg.confirm("是否要删除该模块？", {
+		okCall: function(){
+			$.ajax({ 
+				type: "post", 
+				url:'__APP__/Admin/ModuleManage/module_del/',
+				data: "&GUID="+GUID,
+				success: function(msg){
+					var res = eval("(" + msg + ")");
+					if(res.statusCode == '1') {		
+						alertMsg.correct(res.message);
+						navTab.reload("__APP__/Admin/ModuleManage/index");
+					}else {
+						if(res.message!="") {
+							alertMsg.error(res.message);
+						}else {
+							alertMsg.error(res.message);
+						}
+					}			
+				} //操作成功后的操作！msg是后台传过来的值 			 
+			});
+		}
+	});
+}
+</script>
+<div class="pageContent">
+	<div class="panelBar">
+        <ul class="toolBar">
+            <li>
+                <a href="__APP__/Admin/ModuleManage/moduleadd/pid/" target="dialog" rel="Dlguseradd" width="360" height="240" title="添加" mask="true" maxable="false" resizable='false' help="false" class="add"><span >添加</span></a>
+            </li>
+        </ul>
+    </div>
+ 	<div layoutH="58" class="area" style="width:47%;background:#fff;border:1px solid #B8D0D6;border-top:none;margin:10px;">											<!--<ul class="expmenu">
+ 				<li>
+					<div class="header">
+						<span class="arrow up"></span>
+						<span class="label">商品类型</span>
+						<div class="opre">
+							<a title="添加类型" target="dialog" href="__APP__/Admin/GoodsType/goodstypeadd/" rel="newstypeadd" class="btnAdd" width="400" height="140" mask="true" maxable="false" resizable='false' help="false">添加</a>	
+							<a title="添加子类型" target="dialog" href="__APP__/Admin/GoodsType/goodstypeadd/" rel="newstypeadd" class=btnView width="400" height="140" mask="true" maxable="false" resizable='false' help="false">添加</a>									
+							<a title="编辑类型" target="dialog" href="__APP__/Admin/GoodsType/goodstypeedit/" rel="newstypeadd" class="btnEdit" width="400" height="140" mask="true" maxable="false" resizable='false' help="false">编辑</a>					
+							<a href="#" class="btnDel" title="删除类型">删除</a>	
+						</div>
+					</div>
+					<ul class="menu" style="display:block;">
+						<li>
+							<span>测试</span>
+							<div class="opre">									
+								<a title="编辑类型" target="dialog" href="__APP__/Admin/GoodsType/goodstypeedit/" rel="newstypeadd" class="btnEdit" width="400" height="140" mask="true" maxable="false" resizable='false' help="false">编辑</a>					
+								<a href="#" class="btnDel" title="删除此账户">删除</a>	
+							</div>							
+						</li>
+						<li>
+							<span>测试</span>
+							<div class="opre">									
+								<a title="编辑类型" target="dialog" href="__APP__/Admin/GoodsType/goodstypeedit/" rel="newstypeadd" class="btnEdit" width="400" height="140" mask="true" maxable="false" resizable='false' help="false">编辑</a>					
+								<a href="#" class="btnDel" title="删除此账户">删除</a>	
+							</div>
+						</li>
+						<li>
+							<span>测试</span>
+							<div class="opre">									
+								<a title="编辑类型" target="dialog" href="__APP__/Admin/GoodsType/goodstypeedit/" rel="newstypeadd" class="btnEdit" width="400" height="140" mask="true" maxable="false" resizable='false' help="false">编辑</a>					
+								<a href="#" class="btnDel" title="删除此账户">删除</a>	
+							</div>
+						</li>
+					</ul>
+				</li>
+ 				<li>
+					<div class="header">
+						<span class="arrow down"></span>
+						<span class="label">商品资料</span>		
+						<div class="opre">
+							<a title="添加类型" target="dialog" href="__APP__/Admin/GoodsType/goodstypeadd/" rel="newstypeadd" class="btnAdd" width="400" height="140" mask="true" maxable="false" resizable='false' help="false">添加</a>	
+							<a title="添加子类型" target="dialog" href="__APP__/Admin/GoodsType/goodstypeadd/" rel="newstypeadd" class=btnView width="400" height="140" mask="true" maxable="false" resizable='false' help="false">添加</a>									
+							<a title="编辑类型" target="dialog" href="__APP__/Admin/GoodsType/goodstypeedit/" rel="newstypeadd" class="btnEdit" width="400" height="140" mask="true" maxable="false" resizable='false' help="false">编辑</a>					
+							<a href="#" class="btnDel" title="删除类型">删除</a>	
+						</div>						
+					</div>
+					<ul class="menu">
+						<li>
+							<span>测试</span>
+							<div class="opre">									
+								<a title="编辑类型" target="dialog" href="__APP__/Admin/GoodsType/goodstypeedit/" rel="newstypeadd" class="btnEdit" width="400" height="140" mask="true" maxable="false" resizable='false' help="false">编辑</a>					
+								<a href="#" class="btnDel" title="删除此账户">删除</a>	
+							</div>	
+						</li>
+					</ul>
+				</li>				
+			</ul>-->
+            {$goodstypetree}
+	 </div>	
+</div>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>首页</title>
+	 <link rel="stylesheet" type="text/css" href="__PUBLIC__/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/ui/css/style.css">	
+	<script type="text/javascript" src="__PUBLIC__/ui/js/jquery-1.11.3.js"></script>	
+	<script type="text/javascript" src="__PUBLIC__/ui/js/main.js"></script>
+</head>
+<body>
+	<input id="pmoduleid" value="{$pmoduleid}" style="display: none;">
+	<input id="moduleid" value="{$moduleid}" style="display: none;">
+	<input id="ctype" value="{$ctype}" style="display: none;">
+	<input id="searchstr" value="{$searchstr}" style="display: none;">
+	<include file="Public:header"/>
+	<div class="nav_vertical">
+		<volist name="modulelist" id="vo">
+			<a href="javascript:;" <?php if($vo['id']==$moduleid){echo 'class="curNav"';} ?> value="{$vo.id}">
+				{$vo.name}
+			</a>
+		</volist>		
+	</div>
+	<div class="left">
+		<div class="rank_panel">
+			<!-- <a class="btn btn_long" id="btn_hot_7day" >7日热门 ></a> -->
+			<a class="btn btn_long" id="btn_all_bloger">博友列表 ></a>
+			<!-- <a class="btn btn_long" id="btn_all_classify" >全部分类 ></a>
+			<a class="btn btn_long" id="btn_all_tag" >全部标签 ></a> -->
+			<a class="btn btn_long" id="btn_subject" >专题整理 ></a>
+		</div>
+		<include file="Public:classify_tag_dateplace"/>
+		<div class="link_panel">
+			<h2 class="title">推荐站点</h2>
+			<a class="friend_link" style="background-color: #DAB984;" title="书格，有品格的数字古籍图书馆" href="https://shuge.org" target="_blank">
+				书格
+			</a>
+			<a class="friend_link" style="background-color: #FE7F00;" title="【中医宝典】中医名著古籍大全,中医书籍在线阅读,在线学习中医" href="http://zhongyibaodian.com/" target="_blank">
+				中医宝典
+			</a>
+			<a class="friend_link" style="background-color: #CC0001;" title="CSDN博客-专业IT技术发表平台" href="https://blog.csdn.net/" target="_blank">
+				CSDN
+			</a>
+			<a class="friend_link" style="background-color: #433F3E;" title="博客园 - 开发者的网上家园" href="https://www.cnblogs.com/" target="_blank">
+				博客园
+			</a>
+			<a class="friend_link" style="background-color: #ED705A;" title="简书 - 创作你的创作" href="https://www.jianshu.com/" target="_blank">
+				简书
+			</a>
+		</div>
+		<br style="clear:both;" />
+	
+		
+	</div><div class="right">
+		<div class="bookshelf">
+		<h2 class="title"><a href="">国学书架>></a></h2>
+		<ul class="shelf">
+			<li><div class="shelf_item"><a href=""><img src="__PUBLIC__/ui/images/C_15.png"><h3>论语</h3></a></div></li>
+            <li><div class="shelf_item"><a href=""><img src="__PUBLIC__/ui/images/C_15.png"><h3>论语</h3></a></div></li>
+            <li><div class="shelf_item"><a href=""><img src="__PUBLIC__/ui/images/C_15.png"><h3>论语</h3></a></div></li>
+            <li><div class="shelf_item"><a href=""><img src="__PUBLIC__/ui/images/C_15.png"><h3>论语</h3></a></div></li>
+            <li><div class="shelf_item"><a href=""><img src="__PUBLIC__/ui/images/C_15.png"><h3>论语</h3></a></div></li>
+            <li><div class="shelf_item"><a href=""><img src="__PUBLIC__/ui/images/C_15.png"><h3>论语</h3></a></div></li>
+            <li><div class="shelf_item"><a href=""><img src="__PUBLIC__/ui/images/C_15.png"><h3>论语</h3></a></div></li>
+            <li><div class="shelf_item"><a href=""><img src="__PUBLIC__/ui/images/C_15.png"><h3>论语</h3></a></div></li>
+            <li><div class="shelf_item"><a href=""><img src="__PUBLIC__/ui/images/C_15.png"><h3>论语</h3></a></div></li>
+            
+            
+        </ul>
+	</div>
+	<div class="bookshelf">
+		<h2 class="title"><a href="">医学书架>></a></h2>
+		<ul class="shelf">
+			<li><div class="shelf_item"><a href=""><img src="__PUBLIC__/ui/images/C_15.png"><h3>论语</h3></a></div></li>
+            <li><div class="shelf_item"><a href=""><img src="__PUBLIC__/ui/images/C_15.png"><h3>论语</h3></a></div></li>
+            <li><div class="shelf_item"><a href=""><img src="__PUBLIC__/ui/images/C_15.png"><h3>论语</h3></a></div></li>
+            <li><div class="shelf_item"><a href=""><img src="__PUBLIC__/ui/images/C_15.png"><h3>论语</h3></a></div></li>
+            <li><div class="shelf_item"><a href=""><img src="__PUBLIC__/ui/images/C_15.png"><h3>论语</h3></a></div></li>
+            <li><div class="shelf_item"><a href=""><img src="__PUBLIC__/ui/images/C_15.png"><h3>论语</h3></a></div></li>
+            <li><div class="shelf_item"><a href=""><img src="__PUBLIC__/ui/images/C_15.png"><h3>论语</h3></a></div></li>
+            <li><div class="shelf_item"><a href=""><img src="__PUBLIC__/ui/images/C_15.png"><h3>论语</h3></a></div></li>
+            <li><div class="shelf_item"><a href=""><img src="__PUBLIC__/ui/images/C_15.png"><h3>论语</h3></a></div></li>                       
+		</ul>
+	</div>
+		<br style="clear:both;" />
+	</div>
+	<footer class="footer">
+		<div class="footer_inner"> 
+			治学网 版权所有&copy;2018<br/>
+			<a>关于本站</a>丨<a>站长统计</a>丨<a>联系我们</a>
+		</div>
+	</footer>
+</body>
+</html>
