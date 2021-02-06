@@ -1,0 +1,39 @@
+<script type="text/javascript" charset="utf-8">
+
+function myDialogAjaxDone(json){
+	DWZ.ajaxDone(json);
+	if (json.statusCode == 1){
+		//$.pdialog.open("__APP__/ManageDoctor/getauthorityedit/doctorid/"+json.doctorid, "getauthorityedit", "权限设置", {mask:true,width:420,height:600,maxable:false,help:false,resizable:false});
+		$.pdialog.closeCurrent();
+	}
+}
+</script>
+<div class="pageContent">
+	<form method="post" action="__APP__/ManageDoctor/getauthorityadd" class="pageForm required-validate" onsubmit="return validateCallback(this, myDialogAjaxDone)">
+	<input type="hidden" name="doctorid" value="{$doctorid}"/>
+	<div class="pageFormContent_add" layoutH="58">
+		{$newstree}
+		<!--<ul class="tree treeCheck expand">
+			<li><a tname="relation[]" tvalue="47485f86-e788-4026-8421-d8f323c6b217">中医门诊</a>
+			<ul>
+				<li><a tname="relation[]" tvalue="b464d2bc-da38-49f3-b5e3-be6ba273afce">案例采集</a>
+					<ul>
+						<li><a tname="relation[]" tvalue="3EFF01CB-6BE1-F5EA-D126-77D4D46B6746">主诉</a>
+							<ul></ul>
+						</li>
+						<li><a tname="relation[]" tvalue="F546C6F5-FDEB-163D-8167-7EA1E5793E63">现病史</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			</li>
+		</ul>
+	--></div>
+	<div class="formBar">
+		<ul>
+			<li><div class="buttonActive"><div class="buttonContent"><button type="submit" >保存</button></div></div></li>
+			<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+		</ul>
+	</div>
+	</form>
+</div>

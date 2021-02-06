@@ -1,0 +1,11 @@
+.footer {
+	margin-top: 10px;
+    background: #fff;
+    border-top: 8px solid #aaa;
+    position: relative;
+}
+.footer_inner{
+	line-height: 20px;
+	text-align: center;
+	padding: 16px;
+}

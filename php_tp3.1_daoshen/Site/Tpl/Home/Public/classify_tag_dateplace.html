@@ -1,0 +1,23 @@
+<div class="left_classifypanel">
+			<h2 class="title"><a>分类>></a></h2>
+			<volist name="classifylist" id="vo">
+			<a class="classfiy <?php if($vo['id']==$classify){echo 'classfiyselected';} ?>" href="javascript:;" value="{$vo.id}" >
+				<img class="classfiyimg" src="__PUBLIC__/ui/images/C_15.png">
+				<div class="classfiyname">{$vo.name}({$vo.classify_blog_count})</div>
+			</a>
+
+			</volist>
+			
+		</div>
+		<div class="left_tagpanel">
+			<h2 class="title"><a>标签>></a></h2>
+			<volist name="taglist" id="vo">
+			<a class="tag <?php if($vo['name']==$tag){echo ' tagselected';} ?>" href="javascript:;" value="{$vo.name}">{$vo.name}({$vo.tag_blog_count})</a>
+			</volist>
+		</div>	
+		<div class="left_dateplacepanel">
+			<h2 class="title">日期归档</h2>
+			<volist name="datelist" id="vo">
+			<a class="dateplace <?php if($vo['dateplace']==$dateplace){echo ' dateplaceselected';} ?>" href="javascript:;" value="{$vo.dateplace}">{$vo.dateplace}({$vo.dateplace_blog_count})</a>
+			</volist>
+		</div>	

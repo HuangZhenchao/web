@@ -1,0 +1,77 @@
+.btn {
+    display: inline-block;
+	padding: 6px 12px;
+	line-height: 28px;
+    font-size: 14px; 
+    font-weight: 400;/*字体粗细*/
+    text-align: center;/*文本水平对齐方式*/
+    vertical-align: middle;/*垂直对齐方式*/
+    white-space: nowrap;/*文本不会换行*/
+
+    cursor: pointer;/*光标的类型,一只手*/                    
+    user-select: none;/*用户选取*/
+    -webkit-user-select: none;/*webkit浏览器*/
+    -moz-user-select: none;/*火狐*/
+    -ms-user-select: none;/*IE10*/
+    touch-action: manipulation;/*浏览器只允许进行滚动和持续缩放操作*/
+    -ms-touch-action: manipulation;    
+}
+.btn_bg_black{
+	color: #fff;
+	background-color: #000;
+}
+.btn_bg_black:hover{
+	background-color: #C60108;
+}
+.btn_bg_red{
+	color: #fff;
+	background-color: #C60108;
+}
+.btn_bg_red:hover{
+	background-color: #000;
+}
+.btn_bg_orange{
+	color: #fff;
+	background-color: #FF5722;
+}
+.btn_bg_yellow{
+	color: #fff;
+	background-color: #FFB800;
+}
+.btn_bg_green{
+	color: #fff;
+	background-color: #009688;
+}
+.btn_bg_cyan{
+	color: #fff;
+	background-color: #2F4056;
+}
+.btn_bg_blue{
+	color: #fff;
+	background-color: #1E9FFF;
+}
+.btn_bg_gray{
+	color: #666666;
+	background-color: #EEEEEE;
+}
+.btn_large{
+	font-size: 16px;
+	line-height: 32px;
+	padding: 8px 16px;
+}
+.btn_small{
+	padding: 5px 10px;
+}
+.btn_tiny{
+	line-height: 18px;
+	padding: 2px 5px;	
+}
+.btn_radius_0{
+	border-radius: 0px;
+}
+.btn_radius_50{
+	border-radius: 50px;
+}
+.btn_radius_2{
+	border-radius: 4px;
+}

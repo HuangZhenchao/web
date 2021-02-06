@@ -1,0 +1,159 @@
+<style type="text/css">
+.row{ width:661px; overflow:hidden; margin-top:20px;line-height:30px;padding-left:94px;}
+.row span.label{float:left;position:relative;line-height:30px;margin-left:-94px;width:84px;text-align:right; color:#5b5b5b;}
+.btn_submit {background:url(__PUBLIC__/Images/submit.gif) no-repeat;width:70px;height:29px;border:0;}
+</style>
+
+<div class="pageContent">
+	<div id="bodydiv" layoutH="38">
+		<div class="row" style="width:348px;float:left;" id="over_up">
+			<label><span class="label">上传图片：</span></label>
+			<input type="text" id="avatarUpload" value="" />
+			<input type="hidden" id="img" name="img" />
+			<input type="hidden" id="x" name="x" />
+			<input type="hidden" id="y" name="y" />
+			<input type="hidden" id="w" name="w" />
+			<input type="hidden" id="h" name="h" />
+			<div style="padding-top:-10px;">
+				<a href="javascript:$('#avatarUpload').uploadify('upload','*')">开始上传</a> |
+				<a href="javascript:$('#avatarUpload').uploadify('cancel', '*')">取消上传</a>
+			</div>
+		</div>
+
+		<div class="row imgchoose" style="width:510px;display:none;">
+			<label><span class="label">编辑头像：</span></label>
+			<img src="" id="target" />
+		</div>
+		
+		<div class="row imgchoose" style="width:510px;display:none;">
+			<label><span class="label">头像预览：</span></label>
+			<div style="width:112px;height:112px;margin:0 0;overflow:hidden;"><img class="preview" id="preview" src="" /></div>
+		</div>
+		
+		<div style="margin:5px 0 5px 95px;">
+			<input type="button" class="btn_submit" value="提交" id="avatar_submit" style="display:none;cursor:pointer;" />
+		</div>
+	</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">关闭</button></div></div></li>
+			</ul>
+		</div>
+</div>
+
+
+<link href="__PUBLIC__/head_img/uploadify/uploadify.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="__PUBLIC__/head_img/uploadify/jquery.uploadify-3.1.js"></script>
+<script type="text/javascript" src="__PUBLIC__/head_img/jcrop/jquery.Jcrop.min.js"></script>
+<link rel="stylesheet" href="__PUBLIC__/head_img/jcrop/jquery.Jcrop.css" type="text/css" />
+<script type="text/javascript">
+$(function() {
+	//首页轮播图1
+	$("#avatarUpload").uploadify({
+		'auto'				: false,
+		'multi'				: false,
+		'uploadLimit'		: 1,
+		'formData'			: {'uid':'18'},
+		'buttonText'		: '请选择图片',
+		'height'			: 20,
+		'width'				: 120,
+		'removeCompleted'	: false,
+		'swf'				: '__ROOT__/Public/head_img/uploadify/uploadify.swf',
+		'uploader'			: '__APP__/UploadedPictures/upload_img',
+		'fileTypeExts'		: '*.jpg; *.jpeg;',
+		//'fileSizeLimit'		: '2048KB',
+		'onUploadSuccess' : function(file, data, response) {
+
+			var msg = $.parseJSON(data);
+			if( msg.result_code == 1 ){
+				$("#img").val( msg.result_des );
+				$("#target").attr("src",msg.result_des);
+				$(".preview").attr("src",msg.result_des);
+				$('#target').Jcrop({
+					minSize: [50,50],
+					setSelect: [0,0,200,200],
+					onChange: updatePreview,
+					onSelect: updatePreview,
+					onSelect: updateCoords,
+					aspectRatio: 1
+				},
+				function(){
+					// Use the API to get the real image size
+					var bounds = this.getBounds();
+					boundx = bounds[0];
+					boundy = bounds[1];
+					// Store the API in the jcrop_api variable
+					jcrop_api = this;
+				});
+				$("#over_up").hide();
+				$(".imgchoose").show(1000);
+				$("#avatar_submit").show(1000);
+			} else {
+				alert('上传失败！');
+			}
+		},
+		'onClearQueue' : function(queueItemCount) {
+        alert( $('#img1') );
+    },
+		'onCancel' : function(file) {
+        alert('The file ' + file.name + ' was cancelled.');
+    }
+  });
+    
+    //头像裁剪
+	var jcrop_api, boundx, boundy;
+	
+	function updateCoords(c)
+	{
+		$('#x').val(c.x);
+		$('#y').val(c.y);
+		$('#w').val(c.w);
+		$('#h').val(c.h);
+	};
+	function checkCoords()
+	{
+		if (parseInt($('#w').val())) return true;
+		alert('请选择图片上合适的区域');
+		return false;
+	};
+	function updatePreview(c){
+		if (parseInt(c.w) > 0){
+			var rx = 112 / c.w;
+			var ry = 112 / c.h;
+			$('#preview').css({
+				width: Math.round(rx * boundx) + 'px',
+            	height: Math.round(ry * boundy) + 'px',
+            	marginLeft: '-' + Math.round(rx * c.x) + 'px',
+            	marginTop: '-' + Math.round(ry * c.y) + 'px'
+			});
+		}
+	};
+	
+	$("#avatar_submit").click(function(){
+		var img = $("#img").val();
+		var x = $("#x").val();
+		var y = $("#y").val();
+		var w = $("#w").val();
+		var h = $("#h").val();
+		if( checkCoords() ){
+			$.ajax({
+				type: "POST",
+				url: "__APP__/UploadedPictures/resize_img",
+				data: {"img":img,"x":x,"y":y,"w":w,"h":h},
+				dataType: "json",
+				success: function(msg){
+					if( msg.result_code == '1' ){
+						$('#bodydiv').animate({scrollTop:$('#avatar').offset().top-150},1000,'swing',function(){
+							$('#avatar').attr('src',msg.result_des.fileurl);
+							$('#picture').val(msg.result_des.small);							
+						});
+						$.pdialog.close("up_img");
+					} else {
+						alert("上传失败！");
+					}
+				}
+			});
+		}
+	});
+});
+</script>

@@ -1,0 +1,69 @@
+/*头部布局*/
+header {       
+    position: fixed; 
+    height: 48px;   
+    top: 0;
+    left: 0;
+    right: 0;
+    line-height: 48px; 
+    font-size: 16px; 
+    background: #fff none repeat scroll 0 0;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+    z-index: 99997;            
+}
+.logo{	
+	width:20%;
+	height: 48px;
+	float:left;
+}
+	
+	.logo_img{	
+		width:31px;
+		height: 48px;
+		margin-left: 50px;
+		
+	}
+	.logo_text{	
+		display: inline-block;
+		font-size: 28px;
+	}
+nav {
+	display: inline-block;	
+	margin-right: 2%;
+}
+	.navUI li {
+		display: inline-block;
+		white-space: nowrap;
+		/*float: left;*/
+		margin-right:20px;		
+	}
+	.navUI li a {
+		font-size: 16px;
+		padding: 6px 11px;
+	}
+	.navUI li a:hover,.navUI li.active a {
+		color: #c90000;
+	}
+	.curNav{
+		background-color: #EC6149;
+		color:#fff;
+	}
+.searchbar{
+	display: inline-block;
+}
+
+.notice{
+	width:58%;
+	height: 24px;
+	margin-left:auto;
+	position: fixed;
+	left: 20%;
+	top:48px;
+	padding-left: 2%;
+	background: #fbfbfb none repeat scroll 0 0;
+}	
+	.notic_text{
+		display: inline-block;
+		color: #A8D5A0;
+		margin-left: 10px;
+	}

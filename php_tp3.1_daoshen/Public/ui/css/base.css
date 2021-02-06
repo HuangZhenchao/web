@@ -1,0 +1,26 @@
+* {
+	margin: 0;
+	padding: 0;
+	border:0;
+    outline:0;
+	vertical-align:middle;
+    background:transparent;
+}
+body {
+	font-size: 14px;
+	background-color:#edece9;
+	color: #444;
+}
+html {
+	font-size: 14px;
+}
+li,ul,ol {
+	list-style: none;
+}
+a {
+	text-decoration: none;
+	color: #444444;
+}
+img {
+	border: none;
+}

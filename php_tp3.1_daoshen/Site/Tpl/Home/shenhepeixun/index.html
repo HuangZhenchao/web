@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>东莞市道深企业管理咨询有限公司</title>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/ui/css/base.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/ui/css/core.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/ui/css/style.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/ui/css/header.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/ui/css/footer.css">
+	<script type="text/javascript" src="__PUBLIC__/ui/js/jquery-1.11.3.js"></script>	
+	<script type="text/javascript" src="__PUBLIC__/ui/js/main.js"></script>	
+</head>
+<body>
+	<input id="pmoduleid" value="{$pmoduleid}" style="display: none;">
+	<input id="moduleid" value="{$moduleid}" style="display: none;">
+	<input id="ctype" value="{$ctype}" style="display: none;">
+	<input id="searchstr" value="{$searchstr}" style="display: none;">
+	<include file="Public:header"/>
+	<div class="left">
+		<div style="width:100%;background-color: #fff;padding-bottom: 10px;">
+			<h2 class="title">客户验厂<a href='' style='float: right;'>更多>></a></h2>
+			<div style='margin:0 20px;'>
+				<a class="tag" href="javascript:;" style="color:#fff;background-color: #1ABCB6;">Wal-Mart验厂</a>
+				<a class="tag" href="javascript:;" style="color:#fff;background-color: #1ABCB6;">Disney验厂</a>
+				<a class="tag" href="javascript:;" style="color:#fff;background-color: #1ABCB6;">HASBRO验厂</a>
+				<a class="tag" href="javascript:;" style="color:#fff;background-color: #1ABCB6;">AVON验厂</a>
+				<a class="tag" href="javascript:;" style="color:#fff;background-color: #1ABCB6;">K-Mart&Sears验厂</a>
+				<a class="tag" href="javascript:;" style="color:#fff;background-color: #1ABCB6;">WCA验厂</a>
+				<a class="tag" href="javascript:;" style="color:#fff;background-color: #1ABCB6;">SQP验厂</a>
+				<a class="tag" href="javascript:;" style="color:#fff;background-color: #1ABCB6;">Mattel验厂</a>
+				<a class="tag" href="javascript:;" style="color:#fff;background-color: #1ABCB6;">COSTCO验厂</a>
+				<a class="tag" href="javascript:;" style="color:#fff;background-color: #1ABCB6;">TESCO验厂</a>
+			</div>
+		</div>
+		<div style="width:100%;background-color: #fff;margin-top: 10px;padding-bottom: 10px;">
+			<h2 class="title">成功案例<a href='' style='float: right;'>更多>></a></h2>
+			<div style='margin:0 20px;'>
+
+			</div>
+		</div>	
+		<div style="margin-top: 10px;padding-bottom: 10px;">
+			<include file="Public:contackus"/>
+		</div>
+		
+		<br style="clear:both;" />
+	</div><div class="right" >
+	<div class="content">
+		<div class="content_title" value="{$blogarray['id']}"><h1>{$blogarray['title']}</h1></div>
+
+		<div class="content_info">
+			<div class="item_info">
+					<a class="item_info_author" href="">
+						<img class="user_pic" src="{$blogarray['picture']}"><span class="author_username">{$blogarray['author']}</span>
+					</a>
+					<span class="item_info_navicon">
+						<i class="fa fa-navicon" style="color: #999999;"></i>
+						<a href="__APP__/Home/ModulePage/modulepage/pmoduleid/{$blogarray.pmoduleid}">{$blogarray.pmodulename}</a> ▪ <a href="__APP__/Home/ModulePage/modulepage/pmoduleid/{$blogarray.pmoduleid}/classify/{$blogarray.classify}">{$blogarray.classifyname}</a>
+					</span>
+					<span class="item_info_time">
+						<i class="fa fa-clock-o" style="color: #999999;"></i><span class="text_time">{$blogarray['dt']}</span>
+					</span>
+					<span class="item_info_browseCount">
+						<i class="fa fa-eye" style="color: #999999;"></i><span class="text_browseCount">{$blogarray['browsenum']}浏览</span>
+					</span>
+					<span class="item_info_commentCount">
+						<i class="fa fa-comments" style="color: #999999;"></i><span class="text_commentCount">{$blogarray['commentnum']}评论</span>
+					</span>
+					<span class="item_info_favCount">
+						<i class="fa fa-heart-o" style="color: #999999;"></i><span class="text_favCount">{$blogarray['favnum']}喜欢</span>
+					</span>
+				</div>
+		</div>
+		<div class="content_content">
+			{$blogarray['content']}
+		</div>
+	</div>
+	</div>
+	<include file="Public:footer"/>
+</body>
+</html>
+	
